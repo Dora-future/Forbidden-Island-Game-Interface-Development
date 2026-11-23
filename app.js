@@ -1,4 +1,5 @@
-// Playable Forbidden Island rules prototype. Card art and board artwork are original UI placeholders.
+
+ // Playable Forbidden Island rules prototype. Card art and board artwork are original UI placeholders.
 const screens=[...document.querySelectorAll('.screen')];
 const labels={welcome:'EXPEDITION ARCHIVE · 01',howto:'FIELD GUIDE · 01',settings:'ACCESS OPTIONS',crew:'EXPEDITION · CREW',difficulty:'EXPEDITION · CHALLENGE',board:'EXPEDITION · ISLAND MAP',flood:'ISLAND UPDATE · FLOOD ALERT',treasureAlert:'EXPEDITION · RELIC ARCHIVE',escape:'FINAL MISSION · HELIPAD',victory:'MISSION COMPLETE'};
 const progress={welcome:8,howto:8,settings:8,crew:25,difficulty:42,board:62,flood:72,treasureAlert:78,escape:90,victory:100};
@@ -26,7 +27,7 @@ function makeGame(){
  const g={tiles,players,current:0,actions:3,phase:'actions',turn:1,water:2,treasureDeck:makeDeck(),treasureDiscard:[],floodDeck:shuffled(names),floodDiscard:[],out:[],relics:[],helicopters:0,handLimit:5,log:[],floodNames,won:false,lost:false};
  // Flip six tiles and place one starting hand card per player until they have two non-Waters Rise cards.
  for(const n of floodNames.slice(0,6))g.tiles.find(t=>t.name===n).state='flooded';g.floodDeck=floodNames.slice(6);
- for(const p of players){p.hand=[];while(p.hand.length<2){let c=drawTreasureRaw(g);if(c.type==='waters'){g.treasureDeck=shuffled([...g.treasureDeck,c])}else p.hand.push(c)}}
+ for(const p of players){p.hand=[];while(p.hand.length<2){letwe work from C:/  c=drawTreasureRaw(g);if(c.type==='waters'){g.treasureDeck=shuffled([...g.treasureDeck,c])}else p.hand.push(c)}}
  g.log.push('The island is laid out. Six tiles are flooded.');return g;
 }
 function drawTreasureRaw(g){if(!g.treasureDeck.length){g.treasureDeck=shuffled(g.treasureDiscard);g.treasureDiscard=[]}return g.treasureDeck.pop()||{type:'treasure',key:'earth'}}

@@ -1,8 +1,4 @@
 ///Updated javascript after inspect bug
-Here is the full updated `app.js`. Replace the existing file contents with this:
-
-```javascript
-// Playable Forbidden Island rules prototype. Card art and board artwork are original UI placeholders.
 const screens=[...document.querySelectorAll('.screen')];
 const labels={welcome:'EXPEDITION ARCHIVE · 01',howto:'FIELD GUIDE · 01',settings:'ACCESS OPTIONS',crew:'EXPEDITION · CREW',difficulty:'EXPEDITION · CHALLENGE',board:'EXPEDITION · ISLAND MAP',flood:'ISLAND UPDATE · FLOOD ALERT',treasureAlert:'EXPEDITION · RELIC ARCHIVE',escape:'FINAL MISSION · HELIPAD',victory:'MISSION COMPLETE'};
 const progress={welcome:8,howto:8,settings:8,crew:25,difficulty:42,board:62,flood:72,treasureAlert:78,escape:90,victory:100};

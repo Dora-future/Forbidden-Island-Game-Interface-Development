@@ -193,6 +193,19 @@ function playNoiseBurst(start,duration,level,cutoff,bus){
   gain.gain.setValueAtTime(0.0001,start);gain.gain.linearRampToValueAtTime(level,start+0.018);gain.gain.exponentialRampToValueAtTime(0.0001,start+duration);
   source.connect(filter);filter.connect(gain);gain.connect(bus);source.start(start);source.stop(start+duration+0.02);
 }
+function playWoodenClick(){
+  if(!audioEnabled||!prepareAudio())return;
+  const now=audioContext.currentTime+0.004;
+  // Short resonant attack with a dry wood-like knock.
+  playEnvelopeTone(1120,now,0.035,0.075,effectsBus,'triangle',620);
+  playEnvelopeTone(420,now,0.052,0.045,effectsBus,'sine',210);
+  playNoiseBurst(now,0.018,0.012,2600,effectsBus);
+}
+document.addEventListener('click',event=>{
+  const control=event.target.closest('button,a,input,select,summary,[role="button"],[data-action]');
+  if(control&&!control.disabled)playWoodenClick();
+},true);
+
 function playGameSound(kind){
   if(!audioEnabled)return;
   if(!prepareAudio())return;

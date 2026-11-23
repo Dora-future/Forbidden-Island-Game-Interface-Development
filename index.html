@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1679d5">
+  <title>Forbidden Island — Expedition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=IM+Fell+English&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="game.css">
+  <link rel="stylesheet" href="team.css">
+  <link rel="stylesheet" href="draw.css">
+  <link rel="stylesheet" href="visuals.css">
+</head>
+<body>
+  <main class="app-frame">
+    <div class="topline"><span class="brand-small">FORBIDDEN ISLAND</span><span id="stepLabel">EXPEDITION ARCHIVE · 01</span></div>
+    <div class="progress" aria-label="Game progress"><i id="progressBar"></i></div>
+
+    <section class="screen active" data-screen="welcome" aria-labelledby="welcomeTitle">
+      <div class="island-art hero-art rulebook-cover" role="img" aria-label="Forbidden Island rulebook cover artwork showing the island at sunset"></div>
+      <p class="eyebrow">THE STORY OF FORBIDDEN ISLAND</p>
+      <h1 id="welcomeTitle">Forbidden <em>Island</em></h1>
+      <p class="intro-copy">Forbidden Island was the secluded retreat of the Archeans, an ancient empire said to command fire, wind, water and earth through four sacred treasures. To protect them, the Archeans designed the island to sink if anyone tried to claim them. Now the island has been rediscovered. Can your team recover the treasures and escape?</p>
+      <div class="stack-actions"><button class="pill primary" data-go="crew">Begin expedition <span>→</span></button><button class="pill dark" data-go="howto">How to play</button><button class="pill ghost" data-go="settings">Access &amp; settings</button></div>
+    </section>
+
+    <section class="screen" data-screen="howto" aria-labelledby="howTitle">
+      <button class="back" data-go="welcome">← Back</button><p class="eyebrow">FIELD GUIDE · 01</p><h1 id="howTitle">Your mission</h1>
+      <div class="info-card"><b>1. Take up to three actions</b><p>Move, shore up, give a treasure card to a teammate, or capture a treasure with four matching cards at its site. Role powers help your crew.</p></div>
+      <div class="info-card"><b>2. Draw treasure, then flood cards</b><p>Draw two Treasure cards. Then reveal Flood cards equal to the water level. A flooded tile that floods again sinks.</p></div>
+      <div class="info-card"><b>3. Escape together</b><p>Capture all four treasures, gather every explorer at Fools’ Landing, then use a Helicopter Lift card.</p></div>
+      <div class="rulebook-page-art" role="img" aria-label="Rulebook illustration showing the island setup and four treasure figures"></div>
+      <button class="pill primary full" data-go="crew">Choose your crew →</button>
+    </section>
+
+    <section class="screen" data-screen="settings" aria-labelledby="settingsTitle">
+      <button class="back" data-go="welcome">← Back</button><p class="eyebrow">MAKE IT COMFORTABLE</p><h1 id="settingsTitle">Access &amp; settings</h1>
+      <label class="setting-row">Text size <select id="textSize"><option value="normal">Standard</option><option value="large">Large</option><option value="larger">Extra large</option></select></label>
+      <label class="setting-row">High contrast <input id="contrastToggle" type="checkbox"></label>
+      <label class="setting-row">Reduce animation <input id="motionToggle" type="checkbox"></label>
+      <p class="small-note">Island states use symbols and labels as well as colour. Game alerts are written on screen.</p>
+      <button class="pill primary full" data-go="welcome">Save settings</button>
+    </section>
+
+    <section class="screen" data-screen="crew" aria-labelledby="crewTitle">
+      <button class="back" data-go="welcome">← Back</button><p class="eyebrow">STEP 01 · BUILD YOUR TEAM</p><h1 id="crewTitle">Choose your crew</h1><p class="subcopy">Select two to four explorers.</p>
+      <div class="crew-grid" id="crewGrid"></div>
+      <p class="selection-count" id="crewCount" aria-live="polite">2 explorers selected</p>
+      <button class="pill primary full" data-go="difficulty">Continue to difficulty →</button>
+    </section>
+
+    <section class="screen" data-screen="difficulty" aria-labelledby="difficultyTitle">
+      <button class="back" data-go="crew">← Back</button><p class="eyebrow">STEP 02 · SET THE CHALLENGE</p><h1 id="difficultyTitle">Select difficulty</h1><p class="subcopy">Choose how quickly the island rises against you.</p>
+      <div class="difficulty-list"><button class="difficulty selected" aria-pressed="true"><i class="dot green"></i><span><b>Novice</b><small>Starting water level 2</small></span><b>●○○</b></button><button class="difficulty" aria-pressed="false"><i class="dot red"></i><span><b>Normal</b><small>Starting water level 3</small></span><b>●●○</b></button><button class="difficulty" aria-pressed="false"><i class="dot blue"></i><span><b>Elite</b><small>Starting water level 4</small></span><b>●●●</b></button><button class="difficulty" aria-pressed="false"><i class="dot violet"></i><span><b>Legendary</b><small>Starting water level 5</small></span><b>●●●●</b></button></div>
+      <button class="pill primary full" data-go="board">Create expedition →</button>
+    </section>
+
+    <section class="screen board-screen" data-screen="board" aria-labelledby="boardTitle">
+      <p class="eyebrow">EXPEDITION · TURN 01</p><div class="board-heading"><h1 id="boardTitle">Island map</h1><span class="water-level">WATER <b>Ⅱ</b></span></div>
+      <div class="rulebook-art-strip island-strip" role="img" aria-label="Island artwork from the Forbidden Island rulebook"></div>
+      <div class="status-strip"><span>TURN <b id="turnName">MAYA</b></span><span>ACTIONS <b id="actionCount">3</b></span><span>RELICS <b id="relicCount">0 / 4</b></span></div>
+      <div class="players-status" id="playersStatus" aria-label="Players"></div>
+      <div class="island-grid" id="islandGrid" aria-label="Island map"></div>
+      <div class="map-legend"><span><i class="legend-safe"></i>Safe</span><span><i class="legend-flood"></i>Flooded</span><span><i class="legend-sunk"></i>Sunken</span><span>✦ Treasure</span></div>
+      <div class="tile-readout" id="tileReadout" aria-live="polite">Tap a tile to inspect it. Your explorer is at Fools' Landing.</div>
+      <div class="deck-row"><button class="deck-box treasure-deck" id="treasureDeckButton" type="button"><b>TREASURE DECK</b><span class="deck-stack">✦</span><small id="treasureDeckCount">—</small><strong id="treasureDeckAction">Draw when prompted</strong></button><div class="discard-box"><b>TREASURE DISCARD</b><div id="treasureDiscard"></div><small id="treasureDiscardCount">—</small></div><div class="deck-box flood-deck"><b>FLOOD DECK</b><span class="deck-stack">≈</span><small id="floodDeckCount">—</small></div><div class="discard-box"><b>FLOOD DISCARD</b><div id="floodDiscard"></div><small id="floodDiscardCount">—</small></div></div>
+      <div id="cardReveal" class="card-reveal" aria-live="polite" hidden></div>
+      <div class="phase-box"><b id="phaseLabel">ACTION PHASE · 3 REMAINING</b><span id="gameHint" role="status" aria-live="polite" aria-atomic="true">Choose an action, then follow the prompt on the map.</span></div>
+      <div class="turn-actions"><button class="action" data-action="move">↗ <span>Move</span></button><button class="action" data-action="shore">⌁ <span>Shore up</span></button><button class="action" data-action="treasure">✦ <span>Capture</span></button><button class="action" data-action="more">••• <span>More</span></button></div>
+      <div class="card-hand"><b id="handTitle">Player hand</b><div id="playerHand" class="hand-cards"></div><div id="otherHands" class="other-hands"></div></div>
+      <div class="pile-bottom"><span>Flood discard cards already seen will return after Waters Rise!</span><button id="openEscape" type="button">Escape status</button></div>
+      <ul class="game-log" id="gameLog" aria-label="Recent game events"></ul>
+      <button class="pill primary full" id="endTurn">Finish actions → draw treasure cards</button>
+    </section>
+
+    <section class="screen event-screen" data-screen="flood" aria-labelledby="floodTitle">
+      <p class="eyebrow">TURN 01 · ISLAND UPDATE</p><div class="event-symbol wave">≋</div><h1 id="floodTitle">Flood alert</h1><p class="event-lead">The tide has turned. Two locations are changing.</p><div class="rulebook-art-strip island-strip" role="img" aria-label="Forbidden Island at sunset from the rulebook"></div>
+      <div class="event-card"><span class="tile-icon flood-icon">≈</span><span><b>Coral Palace</b><small>Now flooded</small></span><strong>!</strong></div>
+      <div class="event-card"><span class="tile-icon sunk-icon">×</span><span><b>Whispering Garden</b><small>Flooded tile has sunk</small></span><strong>×</strong></div>
+      <p class="alert-copy">Sunken tiles cannot be entered. Check your route before the next turn.</p>
+      <button class="pill primary full" data-go="board">Continue game →</button>
+      <button class="pill ghost full" data-go="treasureAlert">View island status</button>
+    </section>
+
+    <section class="screen event-screen" data-screen="treasureAlert" aria-labelledby="treasureTitle">
+      <button class="back" data-go="board">← Return to map</button><p class="eyebrow">EXPEDITION STATUS</p><div class="event-symbol gold-symbol">✦</div><h1 id="treasureTitle">Treasure captured!</h1><p class="event-lead">Your team secured the Crystal of the Deep.</p>
+      <div class="relic-art"><div class="rulebook-page-art relic-sheet" role="img" aria-label="The four treasures from the Forbidden Island rulebook"></div><span>✧</span><b>CRYSTAL<br>OF THE DEEP</b><small>ANCIENT RELIC · 01</small></div>
+      <div class="status-strip relic-status"><span>RELICS <b>1 / 4</b></span><span>ISLAND TILES <b>22 safe</b></span></div>
+      <button class="pill primary full" data-go="board">Continue game →</button>
+    </section>
+
+    <section class="screen escape-screen" data-screen="escape" aria-labelledby="escapeTitle">
+      <p class="eyebrow">FINAL MISSION</p><div class="event-symbol purple-symbol">✈</div><h1 id="escapeTitle">The final escape</h1><p class="event-lead">All treasures recovered. Every explorer must reach the helipad.</p>
+      <div class="escape-checklist"><div>✓ <span>All four treasures found</span></div><div>✓ <span>Team gathered at the helipad</span></div><div>✓ <span>Island route clear</span></div></div>
+      <div class="helicopter-art" aria-label="Forbidden Island artwork at sunset"><div class="rulebook-art-strip escape-island"></div><span>🚁</span><small>HELIPAD · FOOLS' LANDING</small></div>
+      <button class="pill green-button full" data-go="victory">ALL PLAYERS AT HELIPAD · TAKE OFF</button>
+      <button class="pill ghost full" data-go="board">Back to island map</button>
+    </section>
+
+    <section class="screen result-screen" data-screen="victory" aria-labelledby="victoryTitle">
+      <p class="eyebrow">FORBIDDEN ISLAND · MISSION COMPLETE</p><div class="event-symbol purple-symbol">✦</div><h1 id="victoryTitle">You escaped!</h1><p class="event-lead">Your crew worked together and made it off the island.</p><div class="rulebook-art-strip island-strip" role="img" aria-label="The island at sunset from the Forbidden Island rulebook"></div>
+      <div class="result-banner">ALL TREASURES FOUND <b>4 / 4</b></div><h2>PLAYERS</h2><div class="winner-list"></div><p class="congrats">CONGRATULATIONS!<br><small>EVERYONE ESCAPED TOGETHER</small></p>
+      <button class="pill primary full" data-go="crew">Play again</button><button class="pill ghost full" data-go="welcome">Return to expedition menu</button>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Expedition shortcuts"><button data-go="welcome" aria-label="Home">⌂</button><button data-go="board" aria-label="Island map">▦</button><button data-go="treasureAlert" aria-label="Relics">✦</button><button data-go="settings" aria-label="Settings">⚙</button></nav>
+    <div id="actionMenu" class="action-menu" hidden></div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

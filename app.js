@@ -176,12 +176,34 @@ function playFluteNote(frequency,start,duration){
   breathGain.gain.setValueAtTime(0.0001,start);breathGain.gain.linearRampToValueAtTime(0.004,start+0.035);breathGain.gain.exponentialRampToValueAtTime(0.0001,start+0.16);
   breath.connect(breathFilter);breathFilter.connect(breathGain);breathGain.connect(musicBus);breath.start(start);breath.stop(start+0.17);
 }
+function playHarpNote(frequency,start,duration=0.78){
+  const context=audioContext;if(!context||!musicBus)return;
+  [[1,0.034],[2.01,0.012],[3.92,0.005]].forEach(([partial,level])=>{
+    const oscillator=context.createOscillator(),filter=context.createBiquadFilter(),gain=context.createGain();
+    oscillator.type='sine';oscillator.frequency.setValueAtTime(frequency*partial,start);
+    filter.type='lowpass';filter.frequency.setValueAtTime(3600,start);
+    gain.gain.setValueAtTime(0.0001,start);
+    gain.gain.linearRampToValueAtTime(level,start+0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001,start+duration);
+    oscillator.connect(filter);filter.connect(gain);gain.connect(musicBus);
+    oscillator.start(start);oscillator.stop(start+duration+0.025);
+  });
+}
 function playAmbientBar(){
   if(!audioEnabled||!musicStarted||!audioContext)return;
-  const start=audioContext.currentTime+0.04,roots=[146.83,130.81,174.61,196.00],root=roots[musicBar%roots.length];
-  [1,1.189,1.498,2].forEach((ratio,index)=>playEnvelopeTone(root*ratio,start,5.65,[0.012,0.008,0.009,0.004][index],musicBus,'sine'));
-  const phrases=[[0,2,4,2,1,3,5,3],[2,4,6,4,3,1,2,0],[4,2,1,3,5,6,4,2],[0,3,5,4,2,1,3,0]],phrase=phrases[musicBar%phrases.length],scale=[392.00,440.00,523.25,587.33,659.25,783.99,880.00];
-  phrase.forEach((note,index)=>playFluteNote(scale[note],start+0.12+index*0.69,0.92));
+  const start=audioContext.currentTime+0.04;
+  const roots=[146.83,130.81,174.61,196.00],root=roots[musicBar%roots.length];
+  // Warm orchestral bed under a quicker, medieval harp arpeggio.
+  [1,1.189,1.498,2].forEach((ratio,index)=>playEnvelopeTone(root*ratio,start,5.65,[0.016,0.011,0.012,0.006][index],musicBus,'sine'));
+  const arpeggios=[
+    [587.33,880.00,1174.66,880.00,783.99,1174.66,1567.98,1174.66,880.00,1318.51,1760.00,1318.51],
+    [523.25,783.99,1046.50,783.99,698.46,1046.50,1396.92,1046.50,783.99,1174.66,1567.98,1174.66],
+    [698.46,1046.50,1396.92,1046.50,880.00,1318.51,1760.00,1318.51,1046.50,1567.98,2093.00,1567.98],
+    [783.99,1174.66,1567.98,1174.66,987.77,1479.98,1975.53,1479.98,1174.66,1760.00,2349.32,1760.00]
+  ];
+  arpeggios[musicBar%arpeggios.length].forEach((note,index)=>playHarpNote(note,start+index*0.39,0.72));
+  const phrases=[[392.00,523.25,587.33,659.25,587.33,523.25],[440.00,587.33,659.25,783.99,659.25,587.33],[523.25,659.25,783.99,880.00,783.99,659.25],[392.00,493.88,587.33,783.99,659.25,523.25]];
+  phrases[musicBar%phrases.length].forEach((note,index)=>playFluteNote(note,start+0.16+index*0.78,0.78));
   musicBar++;
 }
 function playNoiseBurst(start,duration,level,cutoff,bus){

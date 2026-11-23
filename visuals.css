@@ -1,0 +1,15 @@
+/* Exact artwork rendered from the user-provided Forbidden Island rulebook PDF. */
+.rulebook-cover{height:180px;margin:-3px -3px 20px;border:2px solid #fff8e8;border-radius:0;background-image:url("rulebook-cover-page.png");background-repeat:no-repeat;background-size:auto 500%;background-position:center bottom;box-shadow:0 2px 8px #513a2533}
+.rulebook-art-strip{height:62px;width:100%;border-radius:10px;background-image:url("rulebook-cover-page.png");background-repeat:no-repeat;background-size:auto 500%;background-position:center bottom;border:1px solid #fff1ce;box-shadow:0 2px 7px #4b382044}
+.board-screen .rulebook-art-strip{margin:0 0 8px}
+.island-strip{background-size:auto 850%}
+.rulebook-page-art{height:125px;width:100%;border:1px solid #c4a36a;border-radius:10px;background-image:url("rulebook-setup-page.png");background-repeat:no-repeat;background-size:100% auto;background-position:center bottom;box-shadow:0 2px 7px #4b382044}
+.info-card+.rulebook-page-art{margin:14px 0}
+.relic-art{position:relative;overflow:hidden}
+.relic-art .relic-sheet{position:absolute;inset:0;height:100%;opacity:.86;border:0;border-radius:0;background-size:100% auto;box-shadow:none}
+.relic-art>span,.relic-art>b,.relic-art>small{position:relative;z-index:1;text-shadow:0 2px 5px #261b14,0 0 8px #261b14}
+.helicopter-art{position:relative;overflow:hidden}
+.helicopter-art .escape-island{position:absolute;inset:0;height:100%;border:0;border-radius:0;opacity:.72;background-size:auto 500%}
+.helicopter-art>span,.helicopter-art>small{position:relative;z-index:1;text-shadow:0 1px 4px #112}
+.helicopter-art>small{background:#fff1cece;padding:4px 8px;border-radius:10px}
+@media(max-width:360px){.rulebook-cover{height:150px}.rulebook-page-art{height:100px}}
